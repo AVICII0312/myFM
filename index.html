@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="never">
+    <link rel="stylesheet" href="/style.css">
+    <script src="//at.alicdn.com/t/font_1229939_ai7g0rt701t.js"></script>
+
+    <title>Myfm</title>
+</head>
+
+<body>
+    <header id="header">
+        <div id="more_list" class="more_list"><a href="#">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-gengduo-copy"></use>
+                </svg></a>
+        </div>
+        <ul id="listTitle" class="listTitle">
+            <li>我喜欢</li>
+            <li>电台列表</li>
+        </ul>
+        <ol id="list_Radio">
+
+        </ol>
+
+    </header>
+    <main>
+        <div class="cover"></div>
+        <div class="option">
+            <div class="colect"><a href="#">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shoucang"></use>
+                    </svg></a>
+            </div>
+            <div class="shaer"><a href="#">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-fenxiang"></use>
+                    </svg></a>
+            </div>
+        </div>
+        <div class="songName">
+            <dl><dt>我是真的爱你</dt><dd>张过年</dd></dl>
+
+        </div>
+        <div class="progress">
+            <div class="progress_time">
+                <dl>
+                    <dd id="currentTime">00:00</dd>
+                    <dd id="durationTime">04:42</dd>
+                </dl>       
+            </div>
+            <div class="progress_bar">
+                <div class="actualprogress" id="actualprogress"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ol>
+            <li>
+                <a href="#" class="show" id="voice_Music">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shengyin"></use>
+                    </svg>
+                </a>
+                <a href="#" id="silence_Music">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-jingyin"></use>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="last_Music"class="show">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shangyiqu"></use>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="show" id="play_Music"><svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-bofang"></use>
+                    </svg>
+                </a>
+                <a href="#"  id="pause_Music"><svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-zanting"></use>
+                    </svg>
+                </a>
+            </li>
+            <li> <a href="#" id="next_Music" class="show"><svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-xiayiqu"></use>
+                    </svg>
+                </a>
+            </li>
+            <li> 
+                <a href="#" id="loop_Music" class="show"><svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-xunhuan"></use>
+                    </svg>
+                </a>
+                <a href="#" id="cycle_Music" ><svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-danquxunhuan"></use>
+                    </svg>
+                </a>
+            </li>
+        </ol>
+    </footer>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script src="./js/main.js"></script>
+
+
+</html>
