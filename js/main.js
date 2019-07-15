@@ -223,7 +223,7 @@ var myFm = {
     defaultURL() {
         var _this = this
         $(document).ready(function () {
-            let defaultURL = 'http://audio01.dmhmusic.com/71_53_T10049728025_128_4_1_0_sdk-cpm/0208/M00/53/E1/ChR461xlLX2AFIMqAETdLMFzUtU756.mp3?xcode=1a6b740dc50717784c4b2955482b7c5cbb32705'
+            let defaultURL = 'https://audio01.dmhmusic.com/71_53_T10049728025_128_4_1_0_sdk-cpm/0208/M00/53/E1/ChR461xlLX2AFIMqAETdLMFzUtU756.mp3?xcode=1a6b740dc50717784c4b2955482b7c5cbb32705'
             _this.audio.src = defaultURL
             console.log(1)
         })
