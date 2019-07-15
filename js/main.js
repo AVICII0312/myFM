@@ -1,5 +1,5 @@
 var fmList = {
-    init: function () {
+    init:function(){
         this.$listTitle = $('.listTitle')
         this.$listRadio = $('#list_Radio')
         this.$listChild = $("header ul li:nth-child(2)")
@@ -10,7 +10,7 @@ var fmList = {
     },
     bindEvents: function () {
         var _this = this
-        _this.$cateBtn.on('click', function () { //显示列表       
+        _this.$cateBtn.on('click', function () {   //显示列表       
 
             if (_this.$listTitle.hasClass('show')) {
                 _this.$listTitle.removeClass('show')
@@ -29,24 +29,21 @@ var fmList = {
     },
     render() {
         var _this = this
-        $.ajax({
-            url: "https://api.jirengu.com/fm/getChannels.php",
-            method: "get",
-            dataType: "json"
-        }).done(function (ret) {
-            _this.renderList(ret.channels)
-        }).fail(function () {
-            $(".channel-list").append("<li>请检查网络连接</li>");
-        })
+        $.getJSON('http://api.jirengu.com/fm/getChannels.php') //获取列表信息
+            .done(function (ret) {
+                _this.renderList(ret.channels)
+            }).fail(function () {
+                console.log('error')
+            })
 
     },
     renderList: function (channels) {
         var _this = this
         var html = ''
         channels.forEach(function (channel) { //将电台列表写入cateCt[0]
-            html += '<li data-channel-id="' +
-                channel.channel_id + '">' +
-                channel.name + '</li>'
+            html += '<li data-channel-id="'
+                + channel.channel_id + '">'
+                + channel.name + '</li>'
         })
         _this.$cateCt[0].innerHTML = html
         _this.renderMusic()
@@ -54,16 +51,16 @@ var fmList = {
     renderMusic() {
         var _this = this
         let channels = _this.$cateCt.find('li')
-        for (let i = 0; i < channels.length; i++) {
-            let channelAttr = channels[i]
-            $(channelAttr).on('click', function (ret) {
-                if (ret.target.tagName.toLowerCase() !== 'li') return;
+        for( let i=0; i<channels.length;i++){
+        let channelAttr = channels[i]        
+        $(channelAttr).on('click',function (ret) {
+            if (ret.target.tagName.toLowerCase() !== 'li') return;           
                 EventCenter.fire('select-albumn', {
-                    channelId: $(channelAttr).attr('data-channel-id'),
-                    channelName: $(channelAttr).attr('data-channel-name')
-                })
+                channelId: $(channelAttr).attr('data-channel-id'),
+                channelName: $(channelAttr).attr('data-channel-name')
             })
-        }
+        })
+    }
     },
 }
 
@@ -92,18 +89,18 @@ var myFm = {
         this.playMusic()
         this.pauseMusic()
     },
-    bind: function () {
+    bind:function(){
         _this = this
         EventCenter.on('select-albumn', function (e, channelObj) { //事件监听
             _this.channelId = channelObj.channelId
             _this.channelName = channelObj.channelName
-            _this.loadMusic()
+            _this.loadMusic()           
         })
-        _this.$voice.on('click', function () { //静音
+        _this.$voice.on('click', function () {   //静音
             if (_this.$voice.hasClass('show')) {
                 _this.$voice.removeClass('show')
                 _this.$silence.addClass('show')
-            }
+            } 
             _this.audio.volume = 0
         })
         _this.$silence.on('click', function () {
@@ -113,20 +110,20 @@ var myFm = {
             }
             _this.audio.volume = 1
         })
-        _this.$play.on('click', function () { //播放暂停
-
-            _this.audio.play()
-
+        _this.$play.on('click', function () {   //播放暂停
+            
+                _this.audio.play()
+            
         })
         _this.$pause.on('click', function () {
-
-            _this.audio.pause()
-
+            
+                _this.audio.pause()
+            
         })
-        _this.$last.on('click', function () { //上一曲
+        _this.$last.on('click',function(){ //上一曲
             _this.loadMusic()
         })
-        _this.$next.on('click', function () { //下一曲
+        _this.$next.on('click',function(){ //下一曲
             _this.loadMusic()
         })
         _this.$loop.on('click', function () { //单曲循环
@@ -134,7 +131,7 @@ var myFm = {
                 _this.$loop.removeClass('show')
                 _this.$cycle.addClass('show')
                 _this.audio.loop = true
-
+                
             }
         })
         _this.$cycle.on('click', function () {
@@ -142,20 +139,18 @@ var myFm = {
                 _this.$cycle.removeClass('show')
                 _this.$loop.addClass('show')
                 _this.audio.loop = false
-
+                
             }
         })
         _this.defaultURL()
     },
     loadMusic(callback) { //获取歌曲URL
         var _this = this
-        $.getJSON('https://api.jirengu.com/fm/getSong.php', {
-            channel: this.channelId
-        }).done(function (ret) {
+        $.getJSON('http://api.jirengu.com/fm/getSong.php', { channel: this.channelId }).done(function (ret) {
             _this.song = ret['song'][0]
             _this.setMusic()
             _this.$play.removeClass('show')
-            _this.$pause.addClass('show')
+            _this.$pause.addClass('show') 
         })
     },
     setMusic() { //载入歌曲URL
@@ -176,59 +171,59 @@ var myFm = {
         let songPicture = _this.song.picture
         _this.$cover[0].style.background = 'url("' + songPicture + '")'
     },
-    endMusic: function () { //播放结束后
+    endMusic: function(){ //播放结束后
         var _this = this
-        _this.audio.addEventListener('ended', function () {
+        _this.audio.addEventListener('ended', function(){
             _this.loadMusic()
-        })
+          })
     },
-    playMusic: function () { //播放状态
+    playMusic:function(){ //播放状态
         var _this = this
-        _this.audio.addEventListener('playing', function () {
+        _this.audio.addEventListener('playing', function(){
             _this.$cover[0].classList.add('revolve')
             _this.$play.removeClass('show')
             _this.$pause.addClass('show')
             clearInterval(_this.statusClock)
-            _this.statusClock = setInterval(() => {
+            _this.statusClock = setInterval(()=>{
                 _this.updataStatus()
-            }, 10)
+            },10)
         })
     },
-    pauseMusic: function () { //暂停状态
-        var _this = this
-        _this.audio.addEventListener('pause', function () {
+    pauseMusic:function(){ //暂停状态
+        var _this = this 
+        _this.audio.addEventListener('pause', function(){
             _this.$cover[0].classList.remove('revolve')
             _this.$pause.removeClass('show')
             _this.$play.addClass('show')
             clearInterval(_this.statusClock)
         })
     },
-    updataStatus() { //歌曲时间及进度条更新
-        var _this = this
+    updataStatus(){ //歌曲时间及进度条更新
+        var _this = this 
         //播放时间
-        var min = Math.floor(_this.audio.currentTime / 60)
-        var second = Math.floor(_this.audio.currentTime % 60) + ''
-        second = second.length === 2 ? second : '0' + second
-        min = min.length === 1 ? min : '0' + min
-        _this.$currentTime.text(min + ':' + second)
+        var min = Math.floor(_this.audio.currentTime/60)
+        var second = Math.floor(_this.audio.currentTime%60)+''
+        second = second.length === 2 ? second : '0'+second
+        min = min.length === 1 ? min : '0'+min
+        _this.$currentTime.text(min+':'+second)
         //歌曲长度
-        var maxmin = Math.floor(_this.audio.duration / 60)
-        var maxsecond = Math.floor(_this.audio.duration % 60) + ''
-        maxsecond = maxsecond.length === 2 ? maxsecond : '0' + maxsecond
-        maxmin = maxmin.length === 1 ? maxmin : '0' + maxmin
-        _this.$durationTime.text(maxmin + ':' + maxsecond)
+        var maxmin = Math.floor(_this.audio.duration/60)
+        var maxsecond = Math.floor(_this.audio.duration%60)+''
+        maxsecond = maxsecond.length === 2 ? maxsecond : '0'+maxsecond
+        maxmin = maxmin.length === 1 ? maxmin : '0'+maxmin
+        _this.$durationTime.text(maxmin+':'+maxsecond)
         //进度条
-        _this.$actualprogress.css('width', _this.audio.currentTime / _this.audio.duration * 100 + '%')
+        _this.$actualprogress.css('width',_this.audio.currentTime/_this.audio.duration*100+'%')
     },
-    defaultURL() {
-        var _this = this
-        $(document).ready(function () {
-            let defaultURL = 'https://audio01.dmhmusic.com/71_53_T10049728025_128_4_1_0_sdk-cpm/0208/M00/53/E1/ChR461xlLX2AFIMqAETdLMFzUtU756.mp3?xcode=1a6b740dc50717784c4b2955482b7c5cbb32705'
-            _this.audio.src = defaultURL
+    defaultURL(){
+        var _this = this 
+        $(document).ready(function(){
+            let defaultURL ='http://audio01.dmhmusic.com/71_53_T10049728025_128_4_1_0_sdk-cpm/0208/M00/53/E1/ChR461xlLX2AFIMqAETdLMFzUtU756.mp3?xcode=1a6b740dc50717784c4b2955482b7c5cbb32705'
+            _this.audio.src= defaultURL
             console.log(1)
         })
     }
-
+   
 
 }
 var EventCenter = {
