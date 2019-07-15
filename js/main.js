@@ -30,7 +30,7 @@ var fmList = {
     render() {
         var _this = this
         $.ajax({
-            url: "http://api.jirengu.com/fm/getChannels.php",
+            url: "https://api.jirengu.com/fm/getChannels.php",
             method: "get",
             dataType: "json"
         }).done(function (ret) {
