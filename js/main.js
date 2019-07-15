@@ -30,7 +30,7 @@ var fmList = {
     render() {
         var _this = this
         $.ajax({
-            url: "http://api.jirengu.com/fm/getChannels.php",
+            url: "https://api.jirengu.com/fm/getChannels.php",
             method: "get",
             dataType: "json"
         }).done(function (ret) {
@@ -149,7 +149,7 @@ var myFm = {
     },
     loadMusic(callback) { //获取歌曲URL
         var _this = this
-        $.getJSON('http://api.jirengu.com/fm/getSong.php', {
+        $.getJSON('https://api.jirengu.com/fm/getSong.php', {
             channel: this.channelId
         }).done(function (ret) {
             _this.song = ret['song'][0]
