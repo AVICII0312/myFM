@@ -218,7 +218,7 @@ var myFm = {
     defaultURL(){
         var _this = this 
         $(document).ready(function(){
-            let defaultURL ='http://audio01.dmhmusic.com/71_53_T10049728025_128_4_1_0_sdk-cpm/0208/M00/53/E1/ChR461xlLX2AFIMqAETdLMFzUtU756.mp3?xcode=1a6b740dc50717784c4b2955482b7c5cbb32705'
+            let defaultURL ='https://s320.xiami.net/210/59210/2104596128/1810122004_1556003095904_2870.mp3?ccode=xiami_web_web&expire=86400&duration=280&psid=195813bbf14238c01d2d0886462c4e2a&ups_client_netip=101.19.240.69&ups_ts=1563438135&ups_userid=427424978&utid=tAJgFRFINxECAWUT9qTmofK4&vid=1810122004&fn=1810122004_1556003095904_2870.mp3&vkey=B9eab1cc88e20425727ffdf2a9709c466'
             _this.audio.src= defaultURL
             console.log(1)
         })
